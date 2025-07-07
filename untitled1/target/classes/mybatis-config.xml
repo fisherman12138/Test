@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--1.配置数据源的属性集文件-->
+    <properties resource="jdbc.properties"/>
+    <!--2.开启驼峰命名规则-->
+    <settings>
+        <!--开启驼峰命名规则-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--3.配置类型别名-->
+    <typeAliases>
+        <!--配置一个具体的类-->
+        <typeAlias type="fisher.mybatis.pojo.Student" alias="student"/>
+        <!--扫描实体类的包-->
+        <package name="fisher.mybatis.pojo"/>
+    </typeAliases>
+    <!--4.配置JDBC连接-->
+    <environments default="connect1">
+        <environment id="connect1">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <property name="username" value="${mysql.username}"/>
+                <property name="password" value="${mysql.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--5.加载dao层对应mapper(映射)文件-->
+    <mappers>
+        <mapper resource="mappers/StudentMapper.xml"/>
+    </mappers>
+</configuration>
+

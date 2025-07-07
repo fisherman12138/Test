@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间 对应dao层的名称/完整限定名-->
+<mapper namespace="fisher.mybatis.Dao.StudentDao">
+
+    <!--查询所有学生信息-->
+    <select id="selectStudentList" resultType="fisher.mybatis.pojo.Student">
+        SELECT * FROM student
+    </select>
+
+    <!--根据id查询学生信息-->
+    <select id="selectStudentById" parameterType="java.lang.Long" resultType="fisher.mybatis.pojo.Student">
+        SELECT * FROM student WHERE student_id = #{id}
+    </select>
+
+    <!--根据姓名查询学生信息-->
+    <select id="selectStudentByName" parameterType="java.lang.String" resultType="fisher.mybatis.pojo.Student">
+    SELECT * FROM student WHERE student_name = #{name}
+    </select>
+
+    <!--添加学生信息-->
+    <insert id="insertStudent" parameterType="fisher.mybatis.pojo.Student">
+        INSERT INTO student (student_name,student_birth,student_address,student_no,grade_id,student_age)
+        VALUES (#{studentName}, #{studentBirth}, #{studentAddress}, #{studentNo}, #{gradeId}, #{studentAge})
+    </insert>
+
+    <!--更新学生信息-->
+    <update id="updateStudent" parameterType="fisher.mybatis.pojo.Student">
+        UPDATE student
+        SET student_name = #{studentName},
+            student_birth = #{studentBirth},
+            student_address = #{studentAddress},
+            student_no = #{studentNo},
+            grade_id = #{gradeId},
+            student_age = #{studentAge}
+        WHERE student_id = #{studentId}
+    </update>
+
+    <!--通过id删除学生信息-->
+    <delete id="deleteStudentById" parameterType="java.lang.Long">
+        DELETE FROM student WHERE student_id = #{id}
+    </delete>
+    <!--通过姓名删除学生信息-->
+    <delete id="deleteStudentByName" parameterType="java.lang.String">
+        DELETE FROM student WHERE student_name = #{name}
+    </delete>
+
+    <!--查询学生数量-->
+    <select id="getStudentByCondition" parameterType="fisher.mybatis.pojo.Student" resultType="fisher.mybatis.pojo.Student">
+        SELECT * FROM student
+        <where>
+            <if test="studentName != null and studentName != ''">
+                AND student_name LIKE CONCAT('%', #{studentName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!--map入参-->
+    <select id="getStudentByMap" parameterType="java.util.Map" resultType="fisher.mybatis.pojo.Student">
+        SELECT * FROM student
+        <where>
+            <if test="studentName != null and studentName != ''">
+                AND student_name LIKE CONCAT('%', #{studentName}, '%')
+            </if>
+            <if test="gradeId != null">
+                AND grade_id = #{gradeId}
+            </if>
+        </where>
+    </select>
+
+    <!--返回map-->
+    <select id="getStudentMapRes" resultType="java.util.Map">
+        SELECT student_id AS id, student_name AS name, student_no AS no
+        FROM student
+        WHERE student_name LIKE CONCAT('%', #{name}, '%')
+    </select>
+
+    <!--返回多个map-->
+    <select id="getStudentMapList" resultType="java.util.Map">
+        select student_name 姓名, student_no 学号, student_address 地址 from student
+        where student_name like concat('%', #{studentName},'%')
+    </select>
+
+</mapper>
