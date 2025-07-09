@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="generator.entity.User">
+            <id property="userId" column="user_id" />
+            <result property="name" column="name" />
+            <result property="age" column="age" />
+            <result property="email" column="email" />
+            <result property="isDelete" column="is_delete" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,name,age,email,is_delete
+    </sql>
+</mapper>

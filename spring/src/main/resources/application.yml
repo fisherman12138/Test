@@ -1,0 +1,11 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: fisher
+    password: 2580852yzc
+    url: jdbc:mysql://localhost:3306/fisher?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+# Logging Config
+logging:
+  level:
+    com.hwadee.mybatisplus: debug
